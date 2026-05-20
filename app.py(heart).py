@@ -6,8 +6,6 @@ import plotly.express as px
 import plotly.graph_objects as go
 import urllib.parse
 from PIL import Image
-import docx
-import PyPDF2
 import io
 
 # ---------------- PAGE CONFIG ---------------- #
@@ -250,70 +248,7 @@ if uploaded_file is not None:
 
         st.markdown('</div>', unsafe_allow_html=True)
 
-    # PDF
-    elif file_type == "pdf":
 
-        st.markdown('<div class="card">', unsafe_allow_html=True)
-
-        st.subheader("📄 PDF Preview")
-
-        pdf_reader = PyPDF2.PdfReader(uploaded_file)
-
-        text = ""
-
-        for page in pdf_reader.pages:
-            text += page.extract_text()
-
-        st.text_area("PDF Content", text, height=300)
-
-        st.success("✅ PDF Uploaded Successfully")
-
-        st.markdown('</div>', unsafe_allow_html=True)
-
-    # DOCX
-    elif file_type == "docx":
-
-        st.markdown('<div class="card">', unsafe_allow_html=True)
-
-        st.subheader("📝 DOCX Preview")
-
-        doc = docx.Document(uploaded_file)
-
-        full_text = []
-
-        for para in doc.paragraphs:
-            full_text.append(para.text)
-
-        st.text_area(
-            "Document Content",
-            "\n".join(full_text),
-            height=300
-        )
-
-        st.success("✅ DOCX Uploaded Successfully")
-
-        st.markdown('</div>', unsafe_allow_html=True)
-
-    # IMAGE
-    elif file_type in ["png", "jpg", "jpeg"]:
-
-        st.markdown('<div class="card">', unsafe_allow_html=True)
-
-        st.subheader("🖼 Uploaded Medical Image")
-
-        image = Image.open(uploaded_file)
-
-        st.image(image, use_container_width=True)
-
-        st.success(
-            "✅ Image Uploaded Successfully"
-        )
-
-        st.warning(
-            "⚠ Image-based heart disease prediction requires deep learning medical imaging models."
-        )
-
-        st.markdown('</div>', unsafe_allow_html=True)
 
 # ---------------- SIDEBAR ---------------- #
 
